@@ -30,7 +30,7 @@ db.create_all()
 
 
 class UserModelTestCase(TestCase):
-    """Test views for messages."""
+    """Test User model functionality."""
 
     def setUp(self):
         """Create test client, add sample data."""
@@ -77,7 +77,7 @@ class UserModelTestCase(TestCase):
         self.assertNotEqual('testtest', u.password)
 
         u2 = User.signup(
-            username='testuser',
+            username='testuser2',
             email='test2@test.com',
             password= 'testtest',
             image_url= '/test/url',
@@ -85,7 +85,7 @@ class UserModelTestCase(TestCase):
         db.session.add(u2)
 
         #Raises error when a non-unique username is committed to the db
-        self.assertRaises(IntegrityError,db.session.commit())
+        self.assertRaises(BaseException,db.session.commit())
 
     def test_authenicate_user(self):
         """Does authenticate class method work"""
@@ -142,11 +142,11 @@ class UserModelTestCase(TestCase):
         )
         u2 = User.signup(
             username='testuser2',
-            email='test@test.com',
+            email='test2@test.com',
             password= 'testtest',
             image_url= '/test/url',
         )
-        
+
         db.session.add_all([u,u2])
         db.session.commit()
 
